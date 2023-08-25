@@ -18,19 +18,22 @@ def ler_sequencias_do_arquivo(resultados):
     sequencias = []
     try:
         with open(resultados, 'r') as arquivo:
+            print(resultados)
             for linha in arquivo:
                 sequencias.append(list(map(int, linha.strip().split(','))))
+                print(sequencias[-1])
     except FileNotFoundError:
         print("Arquivo não encontrado.")
         pass
     return sequencias
 
-def salvar_sequencia_no_arquivo(resultados, sequencia):
-    with open(resultados, 'a') as arquivo:
-        arquivo.write(','.join(map(str, sequencia)) + '\n')
+def salvar_sequencia_no_arquivo(jogos, sequencia):
+    with open(jogos, 'a') as arquivo:
+        arquivo.write(','.join(map(str, sequencia)) + '\n') # Transforma a lista em uma string separada por vírgulas.
 
 def main():
-    resultados = "sequencias_sorteadas.txt"
+    resultados = "resultadoso.txt"
+    jogos = "jogos.txt"
     sequencias_sorteadas = ler_sequencias_do_arquivo(resultados)
     
     quantidade_sorteados = int(input("Quantos sorteios você quer realizar? "))
@@ -43,7 +46,7 @@ def main():
             sequencia_atual = sortear_numeros()
         
         sequencias_sorteadas.append(sequencia_atual)
-        salvar_sequencia_no_arquivo(resultados, sequencia_atual)
+        salvar_sequencia_no_arquivo(jogos, sequencia_atual)
         print(f"Sequência sorteada: {sequencia_atual}")
 
 if __name__ == "__main__":
